@@ -59,13 +59,16 @@
             methods.init.apply(this, arguments);
         }
         else if (methods[method]) {
+            if (method != "init" && !opts.token) {
+                throw "To use the Brightcove Media API you must set your Media API token, available in your Brightcove Studio under Account Settings / API Management";
+            }			
             methods[method].apply(this, [].slice.call(arguments, 1));
         }
         else {
             if (!opts.token) {
                 throw "To use the Brightcove Media API you must set your Media API token.";
-            }
-
+            }		
+			
             var options, callback;
             if (arguments.length > 1) {
                 options = arguments[1];
