@@ -1,0 +1,27 @@
+ jQuery Brightcove Media API Wrapper
+ Ben Ramey <ben.ramey@gmail.com>
+
+ Refer to Brightcove's Media API documentation for
+ available methods, parameters for those methods and
+ return values
+ http//:docs.brightcove.com/en/media
+
+ Examples:
+
+  initialize the api (must be done before any API call):
+      $.bcMediaAPI("init", { token: "..." });
+      OR
+      $.bcMediaAPI({ token: "..." });
+  
+  call an API method with no parameters:
+      $.bcMediaAPI("find_all_videos", function(result) { ...do something... });
+  call an API method with parameters:
+      $.bcMediaAPI("find_video_by_id", { video_id = '123123121' }, function(result) { ...do something... });
+
+ API extensions:
+ 
+  video_exists:
+      description: returns true or false depending on whether the specified video exists or not
+      parameters:
+          options: same as for "search_videos" API call
+          callback: callback function to handle result of query
