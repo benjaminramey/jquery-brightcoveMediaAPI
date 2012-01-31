@@ -29,11 +29,11 @@
     if (!$) {
         throw "This Brightcove Media API requires jQuery: http://jquery.com";
     }
-	
-	var defaults = {
-		token: null,
-		apiUrl: "http://api.brightcove.com/services/library"
-	};
+
+    var defaults = {
+        token: null,
+        apiUrl: "http://api.brightcove.com/services/library"
+    };
     var opts = {};
     var methods = {
         init: function (options) {
@@ -54,26 +54,27 @@
     };
 
     var bcMediaAPI, _bcMediaAPI
-	bcMediaAPI = function (method) {
+    bcMediaAPI = function (method) {
         if (typeof method === 'object' || !method) {
             methods.init.apply(this, arguments);
         }
         else if (methods[method]) {
             if (method != "init" && !opts.token) {
                 throw "To use the Brightcove Media API you must set your Media API token, available in your Brightcove Studio under Account Settings / API Management";
-            }			
+            }
             methods[method].apply(this, [].slice.call(arguments, 1));
         }
         else {
             if (!opts.token) {
                 throw "To use the Brightcove Media API you must set your Media API token.";
-            }		
-			
-            var options, callback;
-            if (arguments.length > 1) {
-                options = arguments[1];
             }
+
+            var options = {}, callback = null;
             if (arguments.length == 2) {
+                callback = arguments[1];
+            }
+            else if (arguments.length == 3) {
+                options = arguments[1];
                 callback = arguments[2];
             }
 
@@ -117,7 +118,7 @@
             }
         };
     }
-	
+
     bcMediaAPI.noConflict = function () {
         if ($.bcMediaAPI === bcMediaAPI) {
             $.bcMediaAPI = _bcMediaAPI;
